@@ -177,7 +177,7 @@ if (page === "join-group") {
       <TravelDashboard />
       <Footer />
 
-      {/* 🔥 AR BUTTON */}
+      {/*  AR BUTTON */}
       <div 
         className={`floating-ar-btn ${showAR ? 'ar-open' : ''}`}
         onClick={() => setShowAR(!showAR)}
@@ -197,7 +197,7 @@ if (page === "join-group") {
         )}
       </div>
 
-      {/* 🔥 AR OVERLAY */}
+      {/*  AR OVERLAY */}
       {showAR && (
         <div className="ar-overlay">
           <iframe
