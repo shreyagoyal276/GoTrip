@@ -1,0 +1,110 @@
+.group-container {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.group-cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.card {
+  width: 250px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f5f7fa;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+.group-container {
+  text-align: center;
+  padding: 40px;
+  background: linear-gradient(135deg, #1e1e2f, #2c2c54);
+  min-height: 100vh;
+  color: white;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.card-row {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.card {
+  padding: 25px;
+  border-radius: 15px;
+  width: 220px;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+.card button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #00c6ff;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.ai-box {
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.inputs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.inputs input,
+.inputs select {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.ai-btn {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: #ff7a18;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.result-box {
+  margin-top: 20px;
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+}
