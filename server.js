@@ -11,7 +11,6 @@ app.use(express.json());
 
 let groups = {};
 
-// ✅ CREATE GROUP
 app.post("/create-group", (req, res) => {
   const groupId = Math.random().toString(36).substring(2, 8);
 

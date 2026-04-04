@@ -30,22 +30,30 @@ export default function Chat({ code, name }) {
   }, []);
 
   return (
-    <div>
+    <div className="chat-container">
       <h3>Chat</h3>
 
-      <div style={{ height: "150px", overflow: "auto" }}>
+      <div className="chat-messages">
         {messages.map((msg, i) => (
-          <p key={i}><b>{msg.user}:</b> {msg.text}</p>
+          <div className="chat-message" key={i}>
+            <span className="chat-user">{msg.user}:</span>
+            {msg.text}
+          </div>
         ))}
       </div>
 
-      <input
-        value={text}
-        onChange={e => setText(e.target.value)}
-        placeholder="Type message"
-      />
+      <div className="chat-input-row">
+        <input
+          className="chat-input"
+          value={text}
+          onChange={e => setText(e.target.value)}
+          placeholder="Type message"
+        />
 
-      <button onClick={sendMessage}>Send</button>
+        <button className="chat-send-btn" onClick={sendMessage}>
+          Send
+        </button>
+      </div>
     </div>
   );
 }
