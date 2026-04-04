@@ -1,25 +1,38 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
+import requests
 import pickle
 import pandas as pd
 import numpy as np
 import traceback
 import os
 import pandas as pd
+from openai import OpenAI
+
+
+load_dotenv(".env.local")
+
 
 app = Flask(__name__)
-CORS(app)
+CORS(app,
+      resources={r"/api/*": {"origins": "*"}})
 
-print("🔄 Loading ML Model...")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+HF_API_TOKEN = os.getenv("HF_API_TOKEN")
+
+print("HF_API_TOKEN loaded:", bool(HF_API_TOKEN))
+print("GEMINI_API_KEY loaded:", bool(GEMINI_API_KEY))
+print("Loading ML Model...")
 try:
     with open('model/dest_prediction_model.pkl', 'rb') as f:
         model_data = pickle.load(f)
     model = model_data['model']
     encoders = model_data['encoders']
     target_encoder = model_data['target_encoder']
-    print("✅ ML Model loaded! (90.9% accuracy)")
+    print("ML Model loaded! (90.9% accuracy)")
 except Exception as e:
-    print(f"❌ Model loading failed: {e}")
+    print(f"Model loading failed: {e}")
     model = None
     encoders = None
     target_encoder = None
@@ -68,7 +81,115 @@ def predict_destination(user_input, model, encoders, target_encoder, top_n=6):
     results.sort(key=lambda x: float(x['confidence'].replace('%', '')), reverse=True)
     return results[:top_n]
 
+# Cache recent responses
+chat_sessions = {}
+
+@app.route("/api/chat", methods=["POST"])
+
+def chat():
+    try:
+        data = request.get_json(silent=True) or {}
+        user_message = data.get("message", "").strip()
+        session_id = data.get("session_id", "default") 
+
+        if not user_message:
+            return jsonify({"error": "Message is required"}), 400
+
+        if session_id not in chat_sessions:
+            chat_sessions[session_id] = []
+
+        history = chat_sessions[session_id]
+        history.append(f"User: {user_message}")
+
+        if not GEMINI_API_KEY:
+            return jsonify({"error": "GEMINI_API_KEY missing in .env"}), 500
+
+        conversation_text = "\n".join(history)
+
+        prompt = f"""
+You are an intelligent AI travel assistant.
+
+Your tasks:
+- Suggest personalized travel destinations
+- Create mini itineraries
+- Recommend hidden gems (not generic places)
+- Adjust suggestions based on mood, budget, and preferences
+
+Conversation so far:
+{conversation_text}
+
+User message:
+{user_message}
+
+Instructions:
+- Be practical, not generic
+- Keep response concise but useful
+- If user is confused, guide them step-by-step
+- Ask questions in a friendly, human way
+- Make it feel like a travel expert, not a form
+- Avoid robotic structure
+
+IMPORTANT RULES:
+- DO NOT repeat same questions again and again
+- Remember user preferences
+- Continue conversation naturally
+- Be helpful, human-like and conversational
+- No markdown or symbols (** etc), give plain text only
+- Use plain text only
+- Use simple numbering like:
+  1. Question one
+  2. Question two
+- Keep formatting clean for frontend display
+- Keep response short and interactive
+"""
+
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
+
+        payload = {
+            "contents": [
+                {
+                    "role": "user",
+                    "parts": [{"text": prompt}]
+                }
+            ]
+        }
+
+        response = requests.post(url, json=payload)
+
+        result = response.json()
+
+        if response.status_code != 200:
+            return jsonify({
+                "error": result.get("error", {}).get("message", "Gemini failed")
+            }), response.status_code
+
+        reply = (
+            result.get("candidates", [{}])[0]
+            .get("content", {})
+            .get("parts", [{}])[0]
+            .get("text", "")
+        )
+
+        if not reply:
+            reply = "I'm having trouble understanding. Try again?"
+
+        history.append(f"AI: {reply}")
+
+        if len(history) > 10:
+            chat_sessions[session_id] = history[-10:]
+
+        return jsonify({
+            "reply": reply
+        })
+    
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+    
 @app.route('/api/health', methods=['GET'])
+
+
 def health():
     return jsonify({
         'status': 'healthy',
@@ -127,7 +248,8 @@ def demo():
     })
 
 if __name__ == '__main__':
-    print("🚀 ML Travel Predictor API Ready! (90.9% accuracy)")
-    print("📱 Frontend: http://localhost:5173")
-    print("🔧 Test: http://localhost:5000/api/health")
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    print("ML Travel Predictor API Ready! (90.9% accuracy)")
+    print("Frontend: http://localhost:5173")
+    print("Test: http://localhost:5002/api/health")
+    print("Chat: http://localhost:5002/api/chat")
+    app.run(debug=True, port=5002, host='0.0.0.0')
