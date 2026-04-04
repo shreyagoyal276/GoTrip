@@ -1106,6 +1106,54 @@ section::after {
   line-height: 1.5;
 }
 
+/* 🔥 DASHBOARD SECTION */
+.dashboard-section {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.dashboard-section h3 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+/* 🔥 STACKED LAYOUT */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;   /* one below another */
+  align-items: center;
+  gap: 40px;
+}
+
+/* 🔥 INDIVIDUAL DASHBOARD */
+.dashboard-item {
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+}
+
+.dashboard-item p {
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* 🔥 IMAGE STYLE */
+.dashboard-item img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+/* 🔥 HOVER EFFECT */
+.dashboard-item img:hover {
+  transform: scale(1.02);
+}
+
+
 /* responsive */
 @media (max-width: 768px) {
   .insights-header h2 {

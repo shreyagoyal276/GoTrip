@@ -78,6 +78,9 @@
 
 import { useState } from "react";
 
+import dashboard1 from "../assets/Dashboard 1.png";
+import dashboard2 from "../assets/Dashboard 2.png";
+
 function TourismInsights() {
   const [active, setActive] = useState("tourism");
 
@@ -117,13 +120,13 @@ function TourismInsights() {
   return (
     <section className="insights-section">
 
-      {/* Header */}
+      {/* HEADER */}
       <div className="insights-header">
-        <h2>Smart Travel Insights 🧠</h2>
+        <h2>Smart Travel Insights</h2>
         <p>AI-powered insights to plan your perfect trip</p>
       </div>
 
-      {/* Tabs */}
+      {/* TABS */}
       <div className="insight-tabs">
         {tabs.map((tab) => (
           <button
@@ -136,7 +139,7 @@ function TourismInsights() {
         ))}
       </div>
 
-      {/* Content */}
+      {/* INSIGHTS GRID */}
       <div className="insight-grid">
         {data[active].map((item, index) => (
           <div className="insight-card" key={index}>
@@ -146,8 +149,29 @@ function TourismInsights() {
         ))}
       </div>
 
+      {/* 🔥 DASHBOARDS SECTION */}
+      <div className="dashboard-section">
+        <h3>Data Dashboards</h3>
+
+        <div className="dashboard-container">
+          
+          <div className="dashboard-item">
+            <p>Tourism Analysis</p>
+            <img src={dashboard1} alt="Dashboard 1" />
+          </div>
+
+          <div className="dashboard-item">
+            <p>Risk Insights</p>
+            <img src={dashboard2} alt="Dashboard 2" />
+          </div>
+
+        </div>
+      </div>
+
     </section>
   );
 }
 
 export default TourismInsights;
+
+

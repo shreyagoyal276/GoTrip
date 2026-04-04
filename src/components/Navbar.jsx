@@ -23,28 +23,28 @@ function Navbar({ setPage, currentPage }) {
           className={currentPage === "home" ? "active" : ""}
           onClick={() => setPage("home")}
         >
-          {t("home")}
+          {t("Home")}
         </span>
 
         <span
           className={currentPage === "insights" ? "active" : ""}
           onClick={() => setPage("insights")}
         >
-          {t("insights")}
+          {t("Insights")}
         </span>
 
         <span
           className={currentPage === "budget" ? "active" : ""}
           onClick={() => setPage("budget")}
         >
-          {t("budget")}
+          {t("Budget")}
         </span>
 
         <span
           className={currentPage === "friend-family-pass" ? "active" : ""}
           onClick={() => setPage("friend-family-pass")}
         >
-          {t("family")}
+          {t("Family")}
         </span>
 
         {/* <span
