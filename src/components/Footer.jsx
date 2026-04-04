@@ -1,51 +1,3 @@
-// import { useTranslation } from "react-i18next";
-
-// function Footer() {
-//   const { t } = useTranslation();
-
-//   return (
-//     <footer className="footer">
-//       <div className="footer-container">
-
-//         <div className="footer-section">
-//           <h3>GoTrip</h3>
-//           <p>{t("footer_desc")}</p>
-//         </div>
-
-//         <div className="footer-section">
-//           <h3>{t("quick_links")}</h3>
-//           <p>{t("home")}</p>
-//           <p>{t("destinations")}</p>
-//           <p>{t("planner")}</p>
-//           <p>{t("insights")}</p>
-//         </div>
-
-//         <div className="footer-section">
-//           <h3>{t("popular_destinations")}</h3>
-//           <p>{t("goa")}</p>
-//           <p>{t("manali")}</p>
-//           <p>{t("jaipur")}</p>
-//           <p>{t("kerala")}</p>
-//         </div>
-
-//         <div className="footer-section">
-//           <h3>{t("contact")}</h3>
-//           <p>{t("email")}: support@gotrip.com</p>
-//           <p>{t("phone")}: +91 98765 43210</p>
-//           <p>{t("country")}</p>
-//         </div>
-
-//       </div>
-
-//       <div className="footer-bottom">
-//         <p>{t("copyright")}</p>
-//       </div>
-//     </footer>
-//   );
-// }
-
-// export default Footer;
-
 import { useTranslation } from "react-i18next";
 
 function Footer() {
@@ -76,14 +28,46 @@ function Footer() {
           <span>{t("dashboard")}</span>
         </div>
 
-        {/* DESTINATIONS */}
-        <div className="footer-section">
-          <h4>{t("popular_destinations")}</h4>
-          <span>{t("goa")}</span>
-          <span>{t("manali")}</span>
-          <span>{t("jaipur")}</span>
-          <span>{t("kerala")}</span>
-        </div>
+          {/* DESTINATIONS */}
+          <div className="footer-section">
+            <h4>{t("popular_destinations")}</h4>
+
+            <a 
+              href="https://goa-tourism.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none", color: "inherit", display: "block" }}
+            >
+              {t("goa")}
+            </a>
+
+            <a 
+              href="https://himachaltourism.gov.in/destination/manali/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none", color: "inherit", display: "block" }}
+            >
+              {t("manali")}
+            </a>
+
+            <a 
+              href="https://www.tourism.rajasthan.gov.in/jaipur.html" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none", color: "inherit", display: "block" }}
+            >
+              {t("jaipur")}
+            </a>
+
+            <a 
+              href="https://www.keralatourism.org/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none", color: "inherit", display: "block" }}
+            >
+              {t("kerala")}
+            </a>
+          </div>
 
         {/* CONTACT */}
         <div className="footer-section">

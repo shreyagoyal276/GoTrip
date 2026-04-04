@@ -182,9 +182,9 @@ if (page === "join-group") {
 
       <Navbar setPage={setPage} />
       <Hero />
-      <LocationSearch />
       <DestinationInfo />
       <Recommendations />
+      <LocationSearch />    
       <TourismMap />
       <TravelDashboard />
       <Footer />
