@@ -23,3 +23,19 @@ node server.js
 ```bash
 npm run dev
 ```
+
+```bash
+pip install -r requirements.txt
+```
+
+ ML model API
+```bash
+python app.py
+```
+
+
+AR CAM feature
+```bash
+cd cam_backend
+python app.py
+```
