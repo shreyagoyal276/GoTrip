@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gwalior AR Landmarks - Python OpenCV (BLUE THEME)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:system-ui,-apple-system,sans-serif;background:#000;color:#fff;height:100vh;overflow:hidden;}
+        #container{position:relative;width:100vw;height:100vh;}
+        
+        /* 🎥 PYTHON OPENCV STREAM */
+        #video-feed{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;}
+        #video{display:none;}
+        
+        /* 🔍 BLUE SCAN LINES */
+        #scan-lines {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent 98%, rgba(59,130,246,0.6) 99%);
+            background-size: 60px 100%;
+            animation: scan 1.8s linear infinite;
+            pointer-events: none; z-index: 2; display: none;
+        }
+        @keyframes scan {0%{transform:translateX(-60px);}100%{transform:translateX(calc(100vw + 60px));}}
+
+        /* 🎨 CORNER VIGNETTE */
+        #hud-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 4;
+            background: 
+                radial-gradient(circle at 20px 20px, transparent 40%, rgba(0,0,0,0.6) 70%),
+                radial-gradient(circle at calc(100% - 20px) 20px, transparent 40%, rgba(0,0,0,0.6) 70%),
+                radial-gradient(circle at 20px calc(100% - 20px), transparent 40%, rgba(0,0,0,0.6) 70%),
+                radial-gradient(circle at calc(100% - 20px) calc(100% - 20px), transparent 40%, rgba(0,0,0,0.6) 70%);
+            opacity: 0.4;
+        }
+
+        /* 📡 BLUE SIGNAL BARS */
+        #signal-bars {
+            position: absolute; top: 10px; right: 10px; z-index: 5;
+            display: flex; gap: 2px;
+        }
+        .signal-bar {
+            width: 4px; height: 20px; background: rgba(59,130,246,0.3);
+            border-radius: 2px; transition: all 0.3s;
+        }
+        .signal-bar.active { 
+            background: #3b82f6; height: 25px; 
+            box-shadow: 0 0 10px #3b82f6; 
+        }
+
+        /* 🔵 BLUE THEME OVERLAYS */
+        #overlay{position:absolute;bottom:20px;left:20px;right:20px;background:rgba(0,0,0,0.95);padding:25px;border-radius:20px;max-height:60vh;overflow-y:auto;}
+        #location{font-size:28px;font-weight:700;margin-bottom:20px;color:#3b82f6;text-align:center;text-shadow:0 2px 10px rgba(59,130,246,0.3);}
+        #places{display:grid;gap:15px;}
+        .place{
+            background:linear-gradient(135deg,rgba(59,130,246,0.15),rgba(96,165,250,0.1));
+            padding:20px;border-radius:16px;border:1px solid rgba(59,130,246,0.4);
+            transition:all 0.3s;
+        }
+        .place:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(59,130,246,0.3);}
+        .place-name{font-size:18px;font-weight:600;margin-bottom:6px;}
+        .place-distance{font-size:16px;font-weight:600;color:#3b82f6;}
+        .place-type{font-size:14px;color:#60a5fa;margin-top:4px;}
+        .place-intro{font-size:12px;color:#a1a1aa;margin-top:6px;line-height:1.4;max-height:3.2em;overflow:hidden;}
+        #status{position:absolute;top:20px;right:20px;background:rgba(0,0,0,0.9);color:#3b82f6;padding:12px 20px;border-radius:25px;font-size:14px;z-index:5;}
+        #controls{position:absolute;top:80px;right:20px;background:rgba(0,0,0,0.9);padding:20px;border-radius:20px;min-width:140px;display:none;}
+        #gps-controls{position:absolute;top:20px;left:20px;background:rgba(0,0,0,0.9);padding:15px;border-radius:20px;max-width:200px;display:none;}
+        .distance-display{color:#3b82f6;font-weight:600;font-size:16px;text-align:center;margin-bottom:10px;}
+        .slider{width:100%;height:6px;border-radius:3px;background:#374151;outline:none;-webkit-appearance:none;margin:15px 0;}
+        .slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:#3b82f6;border-radius:50%;cursor:pointer;}
+        .preset-btn, .gps-btn{display:block;width:100%;padding:10px;margin:5px 0;background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.4);color:white;border-radius:8px;cursor:pointer;font-size:14px;transition:all 0.2s;}
+        .preset-btn:hover, .gps-btn:hover{background:rgba(59,130,246,0.4);transform:translateY(-1px);}
+        .gps-btn.active{background:#3b82f6;border-color:#1d4ed8;}
+        .loading{text-align:center;opacity:0.7;padding:30px;}
+        .pulse{animation:pulse 1.5s infinite;}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- 🎥 PYTHON OPENCV EDGE DETECTION STREAM -->
+        <img id="video-feed" src="/video_feed" autoplay muted playsinline>
+        <video id="video" style="display:none;"></video>
+        
+        <!-- 🎨 FULL HUD OVERLAYS -->
+        <div id="scan-lines"></div>
+        <div id="hud-overlay"></div>
+        <div id="signal-bars">
+            <div class="signal-bar"></div>
+            <div class="signal-bar"></div>
+            <div class="signal-bar"></div>
+            <div class="signal-bar"></div>
+        </div>
+        
+        <div id="overlay" class="pulse" style="display:none">
+            <div id="location">🔍 Detecting landmarks...</div>
+            <div id="places"><div class="loading">Finding nearby landmarks...</div></div>
+        </div>
+        <div id="status">🚀 Starting OpenCV AR...</div>
+        
+        <div id="controls">
+            <div class="distance-display" id="distance-display">20 km</div>
+            <input type="range" id="distance-slider" class="slider" min="1" max="100" value="20" step="1">
+            <button class="preset-btn" onclick="setDistance(5)">🏘️ 5km</button>
+            <button class="preset-btn" onclick="setDistance(20)">🏙️ 20km</button>
+            <button class="preset-btn" onclick="setDistance(50)">🌆 50km</button>
+        </div>
+        
+        <div id="gps-controls">
+            <div style="font-size:12px;color:#60a5fa;margin-bottom:10px;">📍 Test Locations</div>
+            <button class="gps-btn" onclick="setGPS('Gwalior', 26.2184, 78.1828)">🏰 Gwalior Center</button>
+            <button class="gps-btn" onclick="setGPS('Fort', 26.1939, 78.1644)">🏯 Near Gwalior Fort</button>
+            <button class="gps-btn" onclick="setGPS('Delhi', 28.6139, 77.2090)">🇮🇳 Delhi</button>
+            <button class="gps-btn" onclick="setGPS('Mumbai', 19.0760, 72.8777)">🏙️ Mumbai</button>
+            <button class="gps-btn" onclick="setGPS('Real')">📱 Real GPS</button>
+        </div>
+    </div>
+
+    <!-- SAME JAVASCRIPT (no changes needed) -->
+    <script>
+        const videoFeed = document.getElementById("video-feed");
+        const overlay = document.getElementById("overlay");
+        const locationEl = document.getElementById("location");
+        const placesEl = document.getElementById("places");
+        const statusEl = document.getElementById("status");
+        const slider = document.getElementById("distance-slider");
+        const distanceDisplay = document.getElementById("distance-display");
+        const gpsControls = document.getElementById("gps-controls");
+        const scanLines = document.getElementById("scan-lines");
+        const signalBars = document.querySelectorAll('.signal-bar');
+        
+        let currentRadius = 20;
+        let watchId = null;
+        let useRealGPS = true;
+        let testLat = 26.2184, testLng = 78.1828;
+
+        function showScanning() {
+            scanLines.style.display = 'block';
+            signalBars.forEach((bar, i) => {
+                setTimeout(() => bar.classList.add('active'), i * 100);
+            });
+            statusEl.textContent = '🔍 Scanning landmarks...';
+        }
+
+        function hideScanning() {
+            scanLines.style.display = 'none';
+            signalBars.forEach(bar => bar.classList.remove('active'));
+        }
+
+        videoFeed.onload = () => {
+            statusEl.textContent = "🚀 OpenCV Edge Detection Active";
+            gpsControls.style.display = "block";
+            document.getElementById("controls").style.display = "block";
+            getGPS();
+        };
+
+        function getGPS() {
+            if (useRealGPS) {
+                if (watchId) navigator.geolocation.clearWatch(watchId);
+                watchId = navigator.geolocation.watchPosition(
+                    position => handleGPS(position.coords.latitude, position.coords.longitude),
+                    error => {
+                        statusEl.textContent = "GPS unavailable - using Gwalior";
+                        handleGPS(testLat, testLng);
+                    },
+                    {enableHighAccuracy: true, timeout: 10000, maximumAge: 60000}
+                );
+            } else {
+                handleGPS(testLat, testLng);
+            }
+        }
+
+        function handleGPS(lat, lng) {
+            showScanning();
+            statusEl.textContent = `📍 ${lat.toFixed(4)}, ${lng.toFixed(4)} | 🔍 Scanning...`;
+            
+            fetch('/history_demo', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({lat: lat, lon: lng, radius_km: currentRadius})
+            })
+            .then(r => r.json())
+            .then(data => {
+                setTimeout(hideScanning, 1200);
+                if (data.status === 'success') {
+                    displayPlaces(data);
+                }
+            })
+            .catch(e => {
+                setTimeout(hideScanning, 1200);
+                statusEl.textContent = "🌐 Network error - check Python server";
+                console.error(e);
+            });
+        }
+
+        function setGPS(name, lat, lng) {
+            if (name === 'Real') {
+                useRealGPS = true;
+                document.querySelectorAll('.gps-btn').forEach(btn => btn.classList.remove('active'));
+                statusEl.textContent = "🔄 Real GPS active...";
+                getGPS();
+            } else {
+                useRealGPS = false;
+                testLat = lat;
+                testLng = lng;
+                document.querySelectorAll('.gps-btn').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                statusEl.textContent = `🧪 Testing: ${name}`;
+                handleGPS(lat, lng);
+            }
+        }
+
+        function displayPlaces(data) {
+            overlay.style.display = "block";
+            overlay.classList.remove("pulse");
+            locationEl.textContent = `📍 ${data.gps}`;
+            
+            let html = "";
+            if (!data.nearby_places || data.nearby_places.length === 0) {
+                html = `<div class="loading">No landmarks within ${currentRadius}km</div>`;
+            } else {
+                data.nearby_places.forEach(place => {
+                    html += `
+                        <div class="place">
+                            <div class="place-name">${place.name}</div>
+                            <div class="place-distance">${place.distance_m}m away</div>
+                            <div class="place-type">${place.type}</div>
+                            <div class="place-intro">${place.intro}</div>
+                        </div>
+                    `;
+                });
+            }
+            placesEl.innerHTML = html;
+            statusEl.textContent = `${data.total_found || 0} landmarks • ${data.current_radius_km || currentRadius}km`;
+        }
+
+        slider.addEventListener("input", (e) => {
+            currentRadius = parseInt(e.target.value);
+            distanceDisplay.textContent = `${currentRadius} km`;
+            getGPS();
+        });
+
+        function setDistance(km) {
+            currentRadius = km;
+            slider.value = km;
+            distanceDisplay.textContent = `${km} km`;
+            getGPS();
+        }
+    </script>
+</body>
+</html>

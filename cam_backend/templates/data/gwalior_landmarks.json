@@ -1,0 +1,102 @@
+{
+  "landmarks": [
+    {
+      "name": "Gwalior Fort",
+      "lat": 26.193912,
+      "lng": 78.164426,
+      "type": "fort",
+      "intro": "Massive hilltop fort with palaces, temples & blue-tiled architecture from 8th century."
+    },
+    {
+      "name": "Teli ka Mandir",
+      "lat": 26.195278,
+      "lng": 78.165000,
+      "type": "temple", 
+      "intro": "Tallest temple in Gwalior Fort, unique 'oil press' shape, 9th century architecture."
+    },
+    {
+      "name": "Saas Bahu Temple",
+      "lat": 26.194167,
+      "lng": 78.166111,
+      "type": "temple",
+      "intro": "Twin temples dedicated to mother-in-law & daughter-in-law, intricate carvings (11th century)."
+    },
+    {
+      "name": "Man Mandir Palace",
+      "lat": 26.192500,
+      "lng": 78.163889,
+      "type": "palace",
+      "intro": "Raja Man Singh's palace inside Gwalior Fort, stunning Hindu architecture (15th century)."
+    },
+    {
+      "name": "Gujari Mahal",
+      "lat": 26.219722,
+      "lng": 78.169722,
+      "type": "palace",
+      "intro": "Raja Man Singh built for Gujar queen, now Archaeological Museum (15th century)."
+    },
+    {
+      "name": "Jai Vilas Palace",
+      "lat": 26.227083,
+      "lng": 78.176417,
+      "type": "palace",
+      "intro": "Scindia family's opulent palace with world's largest chandelier (1874)."
+    },
+    {
+      "name": "Gopachal Jain Monuments",
+      "lat": 26.190000,
+      "lng": 78.162222,
+      "type": "monument",
+      "intro": "20 massive Jain tirthankara statues carved into rock (15th century)."
+    },
+    {
+      "name": "Chaturbhuj Temple",
+      "lat": 26.194444,
+      "lng": 78.164444,
+      "type": "temple",
+      "intro": "Towering Vishnu temple inside Gwalior Fort (9th century)."
+    },
+    {
+      "name": "Suraj Kund",
+      "lat": 26.200000,
+      "lng": 78.170000,
+      "type": "stepwell",
+      "intro": "Ancient stepped pond where Gwalior Fort legend began."
+    },
+    {
+      "name": "Scindia School",
+      "lat": 26.225000,
+      "lng": 78.180000,
+      "type": "school",
+      "intro": "Prestigious boarding school founded by Scindia royals (1897)."
+    },
+    {
+      "name": "Gwalior Zoo",
+      "lat": 26.230000,
+      "lng": 78.190000,
+      "type": "zoo",
+      "intro": "Phool Bagh Zoo with tigers, leopards & birds."
+    },
+    {
+      "name": "Sun Temple Gwalior",
+      "lat": 26.210000,
+      "lng": 78.155000,
+      "type": "temple",
+      "intro": "Rare 9th century Surya temple with excellent preservation."
+    },
+    {
+      "name": "Bateshwar Temples",
+      "lat": 26.666667,
+      "lng": 79.166667,
+      "type": "temple",
+      "intro": "200 ancient temples restored by INTACH (near Gwalior)."
+    },
+    {
+      "name": "Tigra Dam",
+      "lat": 26.083333,
+      "lng": 78.316667,
+      "type": "dam",
+      "intro": "Scenic reservoir 25km from Gwalior, boating & picnics."
+    }
+  ]
+}
