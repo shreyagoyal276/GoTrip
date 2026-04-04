@@ -29,7 +29,7 @@ import CreateGroup from "./components/CreateGroup";
 import JoinGroup from "./components/JoinGroup";
 import { useParams } from "react-router-dom";
 import QuickPlanner from "./components/QuickPlanner";
-
+import Chatbot from "./components/ChatBot";
 
 function App() {
 
@@ -86,6 +86,7 @@ function App() {
         <BudgetTracker />
         <DailyExpenseTimeline />
         <ExpenseSplitReceipt />
+        <Chatbot />
       </>
     )
   }
@@ -96,6 +97,7 @@ function App() {
         <LogoutButton />
         <Navbar setPage={setPage} />
         <FriendsFamilyPass />
+        <Chatbot />
       </>
     );
   }
@@ -107,6 +109,7 @@ if (page.startsWith("join/")) {
     <>
       <Navbar setPage={setPage} currentPage={page} />
       <JoinGroup autoCode={code} />
+      <Chatbot />
     </>
   );
 }
@@ -119,6 +122,8 @@ if (page === "quick-plan") {
     <>
       <Navbar setPage={setPage} currentPage={page} />
       <QuickPlanner />
+      <Chatbot />
+
     </>
   );
 }
@@ -131,6 +136,7 @@ if (page === "groups") {
     <>
       <Navbar setPage={setPage} currentPage={page} />
       <GroupPage setPage={setPage} />
+      <Chatbot />
     </>
   )
 }
@@ -142,6 +148,7 @@ if (page === "groups") {
         <LogoutButton />
         <Navbar setPage={setPage} />
         <TourismInsights />
+        <Chatbot />
       </>
     )
   }
@@ -152,6 +159,7 @@ if (page === "groups") {
     <>
       <Navbar setPage={setPage} currentPage={page} />
       <CreateGroup />
+      <Chatbot />
     </>
   )
 }
@@ -161,6 +169,7 @@ if (page === "join-group") {
     <>
       <Navbar setPage={setPage} currentPage={page} />
       <JoinGroup />
+      <Chatbot />
     </>
   )
 }
@@ -170,6 +179,7 @@ if (page === "join-group") {
     <>
       <Navbar setPage={setPage} />
       <Profile />
+      <Chatbot />
     </>
   );
 }
@@ -188,6 +198,8 @@ if (page === "join-group") {
       <TourismMap />
       <TravelDashboard />
       <Footer />
+
+      <Chatbot />
 
       {/* 🔥 AR BUTTON */}
       <div 
