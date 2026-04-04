@@ -58,7 +58,7 @@ function TravelDashboard() {
 
       {/* Header */}
       <div className="dashboard-header">
-        <h2>Your Travel Dashboard ✈️</h2>
+        <h2>Your Travel Dashboard</h2>
         <p>Plan smarter, explore better with GoTrip</p>
       </div>
 
@@ -89,10 +89,45 @@ function TravelDashboard() {
         {/* Images */}
         <div className="dashboard-card glass">
           <h3><FaCamera /> Travel Memories</h3>
+
           <div className="image-grid">
-            <img src="https://source.unsplash.com/300x200/?beach" alt="" />
-            <img src="https://source.unsplash.com/300x200/?mountains" alt="" />
-            <img src="https://source.unsplash.com/300x200/?city" alt="" />
+
+            {/* Taj Mahal */}
+            <img
+              src="https://images.unsplash.com/photo-1564507592333-c60657eea523"
+              alt="Taj Mahal"
+            />
+
+            {/* Goa Beach */}
+            <img
+              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+              alt="Beach"
+            />
+
+            {/* Himalayas */}
+            <img
+              src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
+              alt="Mountains"
+            />
+
+            {/* Jaipur / Rajasthan */}
+            <img
+              src="https://images.unsplash.com/photo-1599661046289-e31897846e41"
+              alt="Jaipur"
+            />
+
+            {/* Kerala Backwaters */}
+            <img
+              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+              alt="Kerala Backwaters"
+            />
+
+            {/* Tirupati) */}
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZCUlIj3XxyWGZhC7rH8j3NjMKcLuCIqBH5A&s"
+              alt="Tirupati"
+            />
+
           </div>
         </div>
 

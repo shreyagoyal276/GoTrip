@@ -23,7 +23,7 @@ export default function QuickPlanner() {
   return (
     <div className="qp-container">
 
-      <h1>⚡ Quick Trip Planner</h1>
+      <h1>Quick Trip Planner</h1>
 
       <div className="qp-card">
 
@@ -48,14 +48,14 @@ export default function QuickPlanner() {
         </select>
 
         <button onClick={generatePlan}>
-          Generate Plan 🚀
+          Generate Plan
         </button>
 
       </div>
 
       {plan && (
         <div className="qp-result">
-          <h3>✨ Your Plan</h3>
+          <h3>Your Plan</h3>
           <p>{plan}</p>
         </div>
       )}

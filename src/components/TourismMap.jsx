@@ -61,13 +61,21 @@ function TourismMap() {
     { name: "Taj Mahal", lat: 27.1751, lng: 78.0421 },
     { name: "Jaipur City Palace", lat: 26.9255, lng: 75.8236 },
     { name: "Kerala Backwaters", lat: 9.4981, lng: 76.3388 },
+    { name: "Vishakapattanam", lat: 17.7209, lng: 83.3006 },
+    { name: "Gwalior", lat: 26.1420, lng: 78.1234 },
+    { name: "Rishikesh", lat: 30.0869, lng: 78.2676 },
+    { name: "Udaipur", lat: 24.5854, lng: 73.7125 },
+    { name: "Goa", lat: 15.2993, lng: 74.1240 },
+    { name: "Amritsar", lat: 31.6340, lng: 74.8723 },
+    { name: "Mysore", lat: 12.2958, lng: 76.6394 },
+    
   ];
 
   return (
     <section className="tourism-map-section">
 
       <div className="tourism-map-header">
-        <h2>Explore Destinations 🌍</h2>
+        <h2>Explore Destinations</h2>
         <p>Discover amazing places with your friends</p>
       </div>
 
@@ -88,7 +96,7 @@ function TourismMap() {
               <Popup>
                 <div className="tourism-popup">
                   <h4>{loc.name}</h4>
-                  <p>✨ Popular destination</p>
+                  <p>Popular destination</p>
                   <button>Explore →</button>
                 </div>
               </Popup>

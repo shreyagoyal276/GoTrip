@@ -4,7 +4,7 @@ function DestinationInfo() {
 
       {/* Header */}
       <div className="destination-header">
-        <h2>Explore Your Destination 🌍</h2>
+        <h2>Featured Location ✨ </h2>
         <p>Smart insights to help you plan the perfect trip</p>
       </div>
 
@@ -20,6 +20,7 @@ function DestinationInfo() {
 
           <div className="destination-content">
             <h3>Taj Mahal, Agra</h3>
+
             <p>
               One of the Seven Wonders of the World, the Taj Mahal is a timeless
               symbol of love. Built by Mughal emperor Shah Jahan, it attracts
@@ -33,15 +34,22 @@ function DestinationInfo() {
               <span>👥 Moderate Crowd</span>
             </div>
 
-            <button className="primary-btn">Start Planning →</button>
+            <button className="primary-btn">
+              Start Planning →
+            </button>
           </div>
         </div>
 
         {/* RIGHT TOP: MAP */}
         <div className="destination-map glass">
           <h4>📍 Location Preview</h4>
+
           <div className="map-box">
-            Map Preview
+            <iframe
+              src="https://maps.google.com/maps?q=Taj%20Mahal&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              loading="lazy"
+              title="Taj Mahal Map"
+            ></iframe>
           </div>
         </div>
 
@@ -50,9 +58,18 @@ function DestinationInfo() {
           <h4>📸 Gallery</h4>
 
           <div className="gallery-grid">
-            <img src="https://source.unsplash.com/300x200/?tajmahal" />
-            <img src="https://source.unsplash.com/300x200/?agra" />
-            <img src="https://source.unsplash.com/300x200/?india,monument" />
+            <img
+              src="https://images.unsplash.com/photo-1564507592333-c60657eea523"
+              alt="Taj Mahal view 1"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1587135941948-670b381f08ce"
+              alt="Taj Mahal view 2"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1599661046289-e31897846e41"
+              alt="Taj Mahal view 3"
+            />
           </div>
         </div>
 

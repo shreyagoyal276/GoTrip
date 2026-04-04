@@ -10,7 +10,7 @@ function LocationSearch() {
 
       {/* Header */}
       <div className="location-header">
-        <h2>Find Your Next Destination ✈️</h2>
+        <h2>Find Your Next Destination...</h2>
         <p>Search and explore places with AI-powered suggestions</p>
       </div>
 

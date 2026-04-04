@@ -1,40 +1,3 @@
-// import "./GroupPage.css";
-
-// export default function GroupPage({ setPage }) {
-//   return (
-//     <div className="group-container">
-
-//       <h1>Plan Your Trip Together ✈️</h1>
-//       <p>Create or join a group to decide destination with friends</p>
-
-//       <div className="group-cards">
-
-//         {/* CREATE GROUP */}
-//         <div className="card">
-//           <h2>🎯 Create Group</h2>
-//           <p>Start a new travel group and invite friends</p>
-//           <button onClick={() => setPage("create-group")}>
-//             Create
-//           </button>
-//         </div>
-
-//         {/* JOIN GROUP */}
-//         <div className="card">
-//           <h2>🔗 Join Group</h2>
-//           <p>Enter code or link shared by your friend</p>
-//           <button onClick={() => setPage("join-group")}>
-//             Join
-//           </button>
-//         </div>
-
-//       </div>
-
-//     </div>
-//   );
-// }
-
-
-
 import { useState } from "react";
 import "./GroupPage.css";
 
@@ -59,15 +22,16 @@ export default function GroupPage({ setPage }) {
   };
 
   return (
+    
     <div className="group-container">
 
-      <h1 className="title">Plan Together ✈️</h1>
+      <h1 className="title">Plan Together</h1>
 
       {/* 🔥 CARDS */}
       <div className="card-row">
 
         <div className="card glass">
-          <h2>🎯 Create Group</h2>
+          <h2>Create Group</h2>
           <button onClick={() => setPage("create-group")}>
             Create
           </button>
@@ -82,10 +46,10 @@ export default function GroupPage({ setPage }) {
 
       </div>
 
-      {/* 🤖 SMART AI SECTION */}
+      {/*  SMART AI SECTION */}
       <div className="ai-box glass">
 
-        <h2>🤖 Smart Destination Finder</h2>
+        <h2>Smart Destination Finder</h2>
 
         <div className="inputs">
 
