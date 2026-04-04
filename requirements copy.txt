@@ -1,9 +1,0 @@
-Flask
-Flask-CORS
-pandas
-numpy
-scikit-learn
-joblib
-opencv-python
-geopy
-python-dotenv

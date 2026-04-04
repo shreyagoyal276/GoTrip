@@ -4,6 +4,29 @@
   position: relative;
 }
 
+.group-container {
+  padding: 100px 24px;
+  text-align: center;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.group-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("../assets/1976998.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  filter: brightness(0.95) contrast(0.2);
+}
+
+
+
+
 .title {
   font-size: 2.5rem;
   color: #1e3a8a;
