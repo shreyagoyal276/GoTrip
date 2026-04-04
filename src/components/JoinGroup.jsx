@@ -7,6 +7,8 @@ export default function JoinGroup({ autoCode }) {
   const [name, setName] = useState("");
   const [group, setGroup] = useState(null);
   const [error, setError] = useState("");
+  const [selectedVote, setSelectedVote] = useState("");
+  const [voteMessage, setVoteMessage] = useState("");
 
   const joinGroup = async () => {
     try {
@@ -34,6 +36,26 @@ export default function JoinGroup({ autoCode }) {
     }
   };
 
+  const handleVote = (place) => {
+    setSelectedVote(place.title);
+    setVoteMessage(`You voted for ${place.title}`);
+  };
+
+  const destinations = [
+    {
+      title: "Goa",
+      desc: "Best for beaches, nightlife, and fun group activities."
+    },
+    {
+      title: "Manali",
+      desc: "Perfect for mountain views, adventure sports, and cool weather."
+    },
+    {
+      title: "Jaipur",
+      desc: "Great for heritage trips, local food, and cultural experiences."
+    }
+  ];
+
   return (
     <div
       style={{
@@ -46,7 +68,6 @@ export default function JoinGroup({ autoCode }) {
         padding: "40px 20px"
       }}
     >
-      {/* Background image */}
       <div
         style={{
           position: "absolute",
@@ -60,7 +81,6 @@ export default function JoinGroup({ autoCode }) {
         }}
       />
 
-      {/* Optional dark overlay */}
       <div
         style={{
           position: "absolute",
@@ -70,13 +90,12 @@ export default function JoinGroup({ autoCode }) {
         }}
       />
 
-      {/* Main card */}
       <div
         style={{
           position: "relative",
           zIndex: 2,
           width: "100%",
-          maxWidth: "520px",
+          maxWidth: "1000px",
           padding: "32px",
           borderRadius: "24px",
           background: "rgba(255, 255, 255, 0.88)",
@@ -196,14 +215,119 @@ export default function JoinGroup({ autoCode }) {
 
             <div
               style={{
-                marginTop: "22px",
-                padding: "16px",
-                borderRadius: "18px",
-                background: "rgba(255,255,255,0.7)",
-                backdropFilter: "blur(10px)"
+                display: "flex",
+                gap: "20px",
+                marginTop: "24px",
+                alignItems: "flex-start",
+                flexWrap: "wrap"
               }}
             >
-              <Chat code={code} name={name} />
+              <div
+                style={{
+                  flex: "1",
+                  minWidth: "280px"
+                }}
+              >
+                <h3
+                  style={{
+                    color: "#1e40af",
+                    marginBottom: "14px"
+                  }}
+                >
+                  Suggested Destinations
+                </h3>
+
+                {voteMessage && (
+                  <p
+                    style={{
+                      color: "#065f46",
+                      background: "#d1fae5",
+                      padding: "10px 14px",
+                      borderRadius: "10px",
+                      marginBottom: "14px",
+                      fontWeight: "600"
+                    }}
+                  >
+                    {voteMessage}
+                  </p>
+                )}
+
+                {destinations.map((place, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      padding: "16px",
+                      marginBottom: "14px",
+                      borderRadius: "16px",
+                      background:
+                        selectedVote === place.title
+                          ? "rgba(191,219,254,0.95)"
+                          : "rgba(255,255,255,0.78)",
+                      border:
+                        selectedVote === place.title
+                          ? "2px solid #2563eb"
+                          : "1px solid rgba(0,0,0,0.05)",
+                      backdropFilter: "blur(10px)",
+                      WebkitBackdropFilter: "blur(10px)",
+                      boxShadow: "0 8px 20px rgba(0,0,0,0.08)"
+                    }}
+                  >
+                    <h4
+                      style={{
+                        margin: "0 0 8px 0",
+                        color: "#1d4ed8",
+                        fontSize: "1.1rem"
+                      }}
+                    >
+                      {place.title}
+                    </h4>
+
+                    <p
+                      style={{
+                        margin: "0 0 14px 0",
+                        color: "#374151",
+                        fontSize: "0.95rem",
+                        lineHeight: "1.5"
+                      }}
+                    >
+                      {place.desc}
+                    </p>
+
+                    <button
+                      onClick={() => handleVote(place)}
+                      style={{
+                        padding: "10px 18px",
+                        borderRadius: "999px",
+                        border: "none",
+                        background:
+                          selectedVote === place.title
+                            ? "#1d4ed8"
+                            : "linear-gradient(135deg, #3b82f6, #60a5fa)",
+                        color: "white",
+                        fontSize: "0.95rem",
+                        fontWeight: "600",
+                        cursor: "pointer"
+                      }}
+                    >
+                      {selectedVote === place.title ? "Selected" : "Select"}
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <div
+                style={{
+                  flex: "1",
+                  minWidth: "280px",
+                  padding: "16px",
+                  borderRadius: "18px",
+                  background: "rgba(255,255,255,0.7)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)"
+                }}
+              >
+                <Chat code={code} name={name} />
+              </div>
             </div>
           </div>
         )}

@@ -21,7 +21,7 @@
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
-  filter: brightness(0.95) contrast(0.2);
+  filter: brightness(0.99) contrast(0.2);
 }
 
 
